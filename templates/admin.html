@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %}Beheerpanel{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Beheerpanel</h1>
+  <p>Hier kun je alle accounts inzien en aanpassen.</p>
+</section>
+
+<section class="card form-card">
+  <h2>Nieuwe gebruiker toevoegen</h2>
+  <form method="post" action="{{ url_for('admin_create_user') }}">
+    <label>Gebruikersnaam
+      <input type="text" name="username" minlength="3" required />
+    </label>
+    <label>Wachtwoord
+      <input type="password" name="password" minlength="6" required />
+    </label>
+    <label>Rol
+      <select name="role">
+        <option value="user">user</option>
+        <option value="admin">admin</option>
+      </select>
+    </label>
+    <button class="btn" type="submit">Aanmaken</button>
+  </form>
+</section>
+
+<section class="card">
+  <h2>Bestaande gebruikers</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Naam</th>
+          <th>Rol</th>
+          <th>Actief</th>
+          <th>Aangemaakt op</th>
+          <th>Acties</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+          <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>
+              <form class="inline" method="post" action="{{ url_for('admin_update_user', user_id=user.id) }}">
+                <select name="role">
+                  <option value="user" {% if user.role == 'user' %}selected{% endif %}>user</option>
+                  <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>admin</option>
+                </select>
+            </td>
+            <td>
+                <label>
+                  <input type="checkbox" name="active" {% if user.active %}checked{% endif %} />
+                  actief
+                </label>
+            </td>
+            <td>{{ user.created_at }}</td>
+            <td>
+                <input type="password" name="password" placeholder="nieuw wachtwoord (optioneel)" />
+                <button class="btn btn-small" type="submit">Opslaan</button>
+              </form>
+              <form class="inline" method="post" action="{{ url_for('admin_delete_user', user_id=user.id) }}" onsubmit="return confirm('Weet je het zeker?');">
+                <button class="btn btn-small btn-danger" type="submit">Verwijder</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Registreren{% endblock %}
+{% block content %}
+<section class="card form-card">
+  <h1>Registreren</h1>
+  <form method="post">
+    <label>Gebruikersnaam
+      <input type="text" name="username" minlength="3" required />
+    </label>
+    <label>Wachtwoord
+      <input type="password" name="password" minlength="6" required />
+    </label>
+    <button class="btn" type="submit">Account maken</button>
+  </form>
+</section>
+{% endblock %}

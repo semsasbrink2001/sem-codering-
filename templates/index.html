@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Welkom{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Welkom 👋</h1>
+  <p>Deze app ondersteunt inloggen, uitloggen en een beheeromgeving voor admins.</p>
+  <div class="actions">
+    <a class="btn" href="{{ url_for('login') }}">Inloggen</a>
+    <a class="btn btn-secondary" href="{{ url_for('register') }}">Registreren</a>
+  </div>
+</section>
+{% endblock %}
