@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Hallo {{ current_user.username }}!</h1>
+  <p>Je bent ingelogd als <strong>{{ current_user.role }}</strong>.</p>
+  {% if current_user.role == 'admin' %}
+    <p>Ga naar de beheerpagina om alle gebruikers te bekijken en aan te passen.</p>
+    <a class="btn" href="{{ url_for('admin_panel') }}">Naar beheer</a>
+  {% else %}
+    <p>Alleen beheerders kunnen het beheerpanel openen.</p>
+  {% endif %}
+</section>
+{% endblock %}
